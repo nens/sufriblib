@@ -1,40 +1,21 @@
 sufriblib
-==========================================
+=========
 
-Introduction
+Parse .RIB and .RMB files according to the SUFRIB 2.1 standard.
 
-Usage, etc.
+For their specification, see the included PDF "UNIFORMERING RIOOL
+INSPECTIEBESTANDEN SUFRIB versie 2.1 revisie 0 28-08-2007-1.pdf".
 
+Usage
+=====
 
-Post-nensskel setup TODO
-------------------------
+The main two functions are in sufriblib.parsers;
 
-Here are some instructions on what to do after you've created the project with
-nensskel.
+    rib, errors = sufriblib.parsers.parse_rib(path)
 
-- Fill in a short description on https://github.com/lizardsystem/sufriblib or
-  https://github.com/nens/sufriblib if you haven't done so already.
+    rmb, errors = sufriblib.parsers.parse_rmb(path)
 
-- Use the same description in the ``setup.py``'s "description" field.
-
-- Fill in your username and email address in the ``setup.py``, see the
-  ``TODO`` fields.
-
-- Check https://github.com/nens/sufriblib/settings/collaboration if the team
-  "Nelen & Schuurmans" has access.
-
-- Add a new jenkins job at
-  http://buildbot.lizardsystem.nl/jenkins/view/djangoapps/newJob or
-  http://buildbot.lizardsystem.nl/jenkins/view/libraries/newJob . Job name
-  should be "sufriblib", make the project a copy of the existing "lizard-wms"
-  project (for django apps) or "nensskel" (for libraries). On the next page,
-  change the "github project" to ``https://github.com/nens/sufriblib/`` and
-  "repository url" fields to ``git@github.com:nens/sufriblib.git`` (you might
-  need to replace "nens" with "lizardsystem"). The rest of the settings should
-  be OK.
-
-- The project is prepared to be translated with Lizard's
-  `Transifex <http://translations.lizard.net/>`_ server. For details about
-  pushing translation files to and fetching translation files from the
-  Transifex server, see the ``nens/translations`` `documentation
-  <https://github.com/nens/translations/blob/master/README.rst>`_.
+If there are errors, errors is a list containing them and rib/rmb will
+be None; if there are no errors, rib will be a sufriblib.rib.RIB
+object and rmb will be a sufriblib.rmb.RMB object and errors will be
+an empty list.

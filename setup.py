@@ -19,13 +19,13 @@ tests_require = [
 
 setup(name='sufriblib',
       version=version,
-      description="TODO",
+      description="A library for working with SUFRIB 2.1 files (.RIB and .RMB files, sewer system measurement data)",
       long_description=long_description,
       # Get strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[],
       keywords=[],
-      author='TODO',
-      author_email='TODO@nelen-schuurmans.nl',
+      author='Remco Gerlich',
+      author_email='remco.gerlich@nelen-schuurmans.nl',
       url='',
       license='GPL',
       packages=['sufriblib'],
