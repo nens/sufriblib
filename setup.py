@@ -36,5 +36,6 @@ setup(name='sufriblib',
       extras_require={'test': tests_require},
       entry_points={
           'console_scripts': [
+            'sufribcat=sufriblib.scripts:sufribcat',
           ]},
       )
