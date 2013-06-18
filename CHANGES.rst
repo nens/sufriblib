@@ -2,7 +2,7 @@ Changelog of sufriblib
 ===================================================
 
 
-0.2 (unreleased)
+0.2 (2013-06-18)
 ----------------
 
 - Check for more errors. Simplified the Error class, it only has a
