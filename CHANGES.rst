@@ -5,7 +5,7 @@ Changelog of sufriblib
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add missing util.py.
 
 
 0.2 (2013-06-18)
