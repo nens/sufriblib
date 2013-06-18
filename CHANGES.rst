@@ -5,7 +5,8 @@ Changelog of sufriblib
 0.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Check for more errors. Simplified the Error class, it only has a
+  line number and a message now.
 
 
 0.1 (2013-06-11)
