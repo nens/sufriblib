@@ -5,7 +5,11 @@ Changelog of sufriblib
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add column number to error message for field length.
+
+- Split off handy enumerate_file() function.
+
+- Check ACF and ACH for use in surface level detection.
 
 
 0.2.1 (2013-06-18)

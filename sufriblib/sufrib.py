@@ -33,6 +33,7 @@ class RibLine(object):
                               expected_fields=len(fields)))
                 ]
 
+        field_starts_at = 1  # Fancy sidecar
         for (field_num, (fieldname, expected_length, format)
              ) in enumerate(fields):
             field = line_fields[field_num]
@@ -42,11 +43,14 @@ class RibLine(object):
                     Error(
                         line_number=line_number,
                         message=("Het {fieldnr}e veld, {name}, is {l} "
-                                 "tekens lang, moet {e} zijn")
+                                 "tekens lang, moet {e} zijn. "
+                                 "Veld begint in kolom {column}")
                         .format(fieldnr=field_num + 1,
                                 name=fieldname,
                                 l=len(field),
-                                e=expected_length))]
+                                e=expected_length,
+                                column=field_starts_at))]
+            field_starts_at += expected_length + 1
 
             # Note that we don't check for required fields here, so if
             # a field consists of just spaces, we record its value as None.
@@ -133,8 +137,8 @@ class RiooLine(RibLine):
         ('ACE', 1, None),
         ('ACF', 2, None),
         ('ACG', 5, None),
-        ('ACH', 6, None),
-        ('ACI', 6, None),
+        ('ACH', 6, 'float'),
+        ('ACI', 6, 'float'),
         ('ACJ', 1, None),
         ('ACK', 1, None),
         ('ACL', 30, None),
@@ -426,7 +430,6 @@ class SUFRIB21(object):
         self.lines = []
 
     def add_line(self, line_number, line, errorlist):
-        line = line.strip("\r\n")
         record_type = line.split('|')[0].strip()
 
         if record_type not in SUFRIB21.LINE_CLASSES:
