@@ -2,7 +2,7 @@ Changelog of sufriblib
 ===================================================
 
 
-0.3 (unreleased)
+0.3 (2013-06-20)
 ----------------
 
 - Add column number to error message for field length.
