@@ -5,7 +5,7 @@ Changelog of sufriblib
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Improved error messages.
 
 
 0.3 (2013-06-20)

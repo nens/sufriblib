@@ -28,7 +28,7 @@ class RibLine(object):
             return [
                 Error(line_number=line_number,
                       message=("Regel heeft {line_fields} velden, "
-                               "verwachtte er {expected_fields}")
+                               "verwachtte er {expected_fields}.")
                       .format(line_fields=len(line_fields),
                               expected_fields=len(fields)))
                 ]
@@ -44,7 +44,7 @@ class RibLine(object):
                         line_number=line_number,
                         message=("Het {fieldnr}e veld, {name}, is {l} "
                                  "tekens lang, moet {e} zijn. "
-                                 "Veld begint in kolom {column}")
+                                 "Veld begint in kolom {column}.")
                         .format(fieldnr=field_num + 1,
                                 name=fieldname,
                                 l=len(field),
@@ -64,18 +64,27 @@ class RibLine(object):
                 if correct:
                     setattr(self, fieldname, interpreted_field)
                 else:
+                    if field == 'float':
+                        message = (
+                        ("Het {fieldnr}e veld, {name}, moet een decimaal "
+                         "getal bevatten. Decimale getallen moeten met "
+                         "een punt geschreven worden, niet met een komma.")
+                        .format(
+                                fieldnr=field_num + 1,
+                                name=fieldname))
+                    else:
+                        message = (
+                            "Het {fieldnr}e veld, {name}, heeft als "
+                            "inhoud '{content}' en dat is niet van de vorm "
+                            "'{format}'.").format(
+                            fieldnr=field_num + 1,
+                            name=fieldname,
+                            content=field,
+                            format=format)
                     return [
                         Error(
                             line_number=line_number,
-                            message=(
-                                "Het {fieldnr}e veld, {name}, heeft als "
-                                "inhoud '{content}' en dat is niet van de vorm "
-                                "'{format}'")
-                            .format(
-                                fieldnr=field_num + 1,
-                                name=fieldname,
-                                content=field,
-                                format=format))]
+                            message=message)]
             else:
                 # Otherwise just use the field verbatim
                 setattr(self, fieldname, field)
@@ -161,19 +170,19 @@ class RiooLine(RibLine):
             errors.append(Error(
                     line_number=self.line_number,
                     message=(
-                "Verplicht veld AAA (strengreferentie) is niet ingevuld")))
+                "Verplicht veld AAA (strengreferentie) is niet ingevuld.")))
 
         if self.AAD is None:
             errors.append(Error(
                     line_number=self.line_number,
                     message=("Verplicht veld AAD (knooppuntreferentie 1) "
-                             "is niet ingevuld")))
+                             "is niet ingevuld.")))
 
         if self.AAF is None:
             errors.append(Error(
                     line_number=self.line_number,
                     message=("Verplicht veld AAF (knooppuntreferentie 2) "
-                             "is niet ingevuld")))
+                             "is niet ingevuld.")))
         return errors
 
     @property
@@ -286,12 +295,12 @@ class PutLine(RibLine):
             errors.append(
                 Error(
                     line_number=self.line_number,
-                    message="Geen knooppunt referentie"))
+                    message="Geen knooppunt referentie ingevuld."))
         if self.CAB is None:
             errors.append(
                 Error(
                     line_number=self.line_number,
-                    message="Geen knooppunt coordinaat"))
+                    message="Geen knooppunt coördinaat ingevuld."))
         return errors
 
 
@@ -392,26 +401,26 @@ class MrioLine(RibLine):
         if self.sewer_id is None:
             errors.append(Error(
                     line_number=self.line_number,
-                    message="Veld ZYE (Streng identificatie) ontbreekt"))
+                    message="Veld ZYE (Streng identificatie) ontbreekt."))
 
         if self.distance is None:
             errors.append(Error(
                     line_number=self.line_number,
-                    message="Veld ZYA (Afstand) ontbreekt"))
+                    message="Veld ZYA (Afstand) ontbreekt."))
 
         if self.ZYB is None:
             errors.append(Error(
                     line_number=self.line_number,
-                    message="Veld ZYB (Richting referentie) ontbreekt"))
+                    message="Veld ZYB (Richting referentie) ontbreekt."))
         elif self.ZYB not in "12":
             errors.append(Error(
                     line_number=self.line_number,
-                    message="Veld ZYB (Richting referentie) moet 1 of 2 zijn"))
+                  message="Veld ZYB (Richting referentie) moet 1 of 2 zijn."))
 
         if self.ZYT is None:
             errors.append(Error(
                     line_number=self.line_number,
-                    message="Veld ZYT (Meetwaarde) ontbreekt"))
+                    message="Veld ZYT (Meetwaarde) ontbreekt."))
 
         return errors
 
@@ -435,7 +444,7 @@ class SUFRIB21(object):
         if record_type not in SUFRIB21.LINE_CLASSES:
             errorlist.append(Error(
                     line_number=line_number,
-                    message="Onbekend record type: '{record_type}'"
+                    message="Onbekend recordtype: '{record_type}'."
                     .format(record_type=record_type)))
         else:
             line_class = SUFRIB21.LINE_CLASSES[record_type]
